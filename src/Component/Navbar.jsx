@@ -59,10 +59,24 @@ const Navbar = () => {
     <div className="navbar w-full mx-auto sticky top-0 left-0 right-0 z-50 bg-base-100">
       {/* Left: Logo */}
       <div className="navbar-start">
-        <Link to="/" className="font-bold whitespace-nowrap text-2xl">
-         RunWay
+      <Link to="/" className="flex items-center group">
+          <div className="relative w-12 h-12 mr-2 transition-transform duration-500 group-hover:rotate-12">
+            <div className={`absolute inset-0 rounded-full ${isDark ? 'bg-orange-500' : 'bg-blue-600'} animate-pulse`}></div>
+            <svg 
+              className="absolute w-10 h-10 left-1 top-1 text-white"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M12 2L15 9H22L16 14L18 22L12 17L6 22L8 14L2 9H9L12 2Z"/>
+            </svg>
+          </div>
+          <span className={`text-3xl font-extrabold ${isDark ? 'text-orange-400' : 'text-blue-700'} transition-colors duration-300`}>
+            Run<span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-400">Way</span>
+          </span>
         </Link>
-      </div>
+</div>
 
       {/* Center: Navigation Links */}
       <div className="navbar-center hidden lg:flex">
@@ -180,7 +194,7 @@ const Navbar = () => {
             {/* User Avatar */}
             <div className="relative group">
               <img
-                src={user.photoURL || '/default-avatar.png'}
+                src={user.photoURL || 'https://img.icons8.com/?size=100&id=423kipnPTZJn&format=png&color=FD7E14'}
                 alt="User Avatar"
                 className="w-10 h-10 rounded-full"
               />

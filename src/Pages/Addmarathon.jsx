@@ -101,123 +101,155 @@ const AddMarathon = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-xl">
-      <h2 className="text-4xl font-bold text-center text-green-700 mb-6">Create Your Marathon Event</h2>
+    <div className="max-w-4xl mx-auto p-8 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl shadow-2xl border-2 border-orange-200">
+    <h2 className="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-amber-500">
+        🏃♂️ Create Your Marathon Event
+        <p className="text-lg mt-3 text-amber-700">Fuel the Running Passion!</p>
+    </h2>
 
-      <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-          <div>
-            <label htmlFor="title" className="block text-lg font-medium text-gray-700">Marathon Title</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={marathonDetails.title}
-              onChange={handleChange}
-              className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Enter marathon title"
-              required
-            />
-          </div>
+    <form onSubmit={handleSubmit} className="space-y-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {/* Title & Location */}
+            <div className="space-y-4">
+                <div className="p-1 bg-gradient-to-r from-amber-200 to-orange-200 rounded-lg">
+                    <div className="bg-white p-5 rounded-lg">
+                        <label htmlFor="title" className="block text-lg font-semibold text-orange-800">🏷️ Marathon Title</label>
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            value={marathonDetails.title}
+                            onChange={handleChange}
+                            className="mt-2 p-3 w-full border-2 border-orange-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-300"
+                            placeholder="Enter marathon title"
+                            required
+                        />
+                    </div>
+                </div>
 
-          <div>
-            <label htmlFor="location" className="block text-lg font-medium text-gray-700">Location</label>
-            <input
-              type="text"
-              id="location"
-              name="location"
-              value={marathonDetails.location}
-              onChange={handleChange}
-              className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Enter location"
-              required
-            />
-          </div>
+                <div className="p-1 bg-gradient-to-r from-amber-200 to-orange-200 rounded-lg">
+                    <div className="bg-white p-5 rounded-lg">
+                        <label htmlFor="location" className="block text-lg font-semibold text-orange-800">📍 Location</label>
+                        <input
+                            type="text"
+                            id="location"
+                            name="location"
+                            value={marathonDetails.location}
+                            onChange={handleChange}
+                            className="mt-2 p-3 w-full border-2 border-orange-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-300"
+                            placeholder="Enter location"
+                            required
+                        />
+                    </div>
+                </div>
+            </div>
+
+            {/* Date Pickers */}
+            <div className="space-y-4">
+                <div className="p-1 bg-gradient-to-r from-amber-200 to-orange-200 rounded-lg">
+                    <div className="bg-white p-5 rounded-lg">
+                        <label className="block text-lg font-semibold text-orange-800">📅 Registration Period</label>
+                        <div className="grid gap-4 mt-4">
+                            <div>
+                                <label htmlFor="startRegDate" className="block text-sm text-amber-700">Start Date</label>
+                                <DatePicker
+                                    selected={marathonDetails.startRegDate}
+                                    onChange={(date) => handleDateChange(date, 'startRegDate')}
+                                    className="mt-1 p-3 w-full border-2 border-orange-200 rounded-xl focus:ring-2 focus:ring-amber-500"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="endRegDate" className="block text-sm text-amber-700">End Date</label>
+                                <DatePicker
+                                    selected={marathonDetails.endRegDate}
+                                    onChange={(date) => handleDateChange(date, 'endRegDate')}
+                                    className="mt-1 p-3 w-full border-2 border-orange-200 rounded-xl focus:ring-2 focus:ring-amber-500"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-          <div>
-            <label htmlFor="startRegDate" className="block text-lg font-medium text-gray-700">Start Registration Date</label>
-            <DatePicker
-              selected={marathonDetails.startRegDate}
-              onChange={(date) => handleDateChange(date, 'startRegDate')}
-              className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-              required
-            />
-          </div>
+        {/* Marathon Details Section */}
+        <div className="p-1 bg-gradient-to-r from-amber-200 to-orange-200 rounded-lg">
+            <div className="bg-white p-6 rounded-lg space-y-6">
+                <div>
+                    <label htmlFor="marathonDate" className="block text-lg font-semibold text-orange-800">🏁 Event Date</label>
+                    <DatePicker
+                        selected={marathonDetails.marathonDate}
+                        onChange={(date) => handleDateChange(date, 'marathonDate')}
+                        className="mt-2 p-3 w-full border-2 border-orange-200 rounded-xl focus:ring-2 focus:ring-amber-500"
+                        required
+                    />
+                </div>
 
-          <div>
-            <label htmlFor="endRegDate" className="block text-lg font-medium text-gray-700">End Registration Date</label>
-            <DatePicker
-              selected={marathonDetails.endRegDate}
-              onChange={(date) => handleDateChange(date, 'endRegDate')}
-              className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-              required
-            />
-          </div>
+                <div>
+                    <label htmlFor="distance" className="block text-lg font-semibold text-orange-800">📏 Distance</label>
+                    <select
+                        id="distance"
+                        name="distance"
+                        value={marathonDetails.distance}
+                        onChange={handleChange}
+                        className="mt-2 p-3 w-full border-2 border-orange-200 rounded-xl focus:ring-2 focus:ring-amber-500"
+                        required
+                    >
+                        <option value="3k">3K Fun Run</option>
+                        <option value="10k">10K Challenge</option>
+                        <option value="25k">25K Marathon</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label htmlFor="description" className="block text-lg font-semibold text-orange-800">📝 Description</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        value={marathonDetails.description}
+                        onChange={handleChange}
+                        className="mt-2 p-3 w-full border-2 border-orange-200 rounded-xl focus:ring-2 focus:ring-amber-500"
+                        placeholder="Describe your marathon event..."
+                        rows="4"
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="image" className="block text-lg font-semibold text-orange-800">🌄 Image URL</label>
+                    <input
+                        type="text"
+                        id="image"
+                        name="image"
+                        value={marathonDetails.image}
+                        onChange={handleImageChange}
+                        className="mt-2 p-3 w-full border-2 border-orange-200 rounded-xl focus:ring-2 focus:ring-amber-500"
+                        placeholder="Paste image URL here"
+                    />
+                </div>
+            </div>
         </div>
 
-        <div className="mb-6">
-          <label htmlFor="marathonDate" className="block text-lg font-medium text-gray-700">Marathon Start Date</label>
-          <DatePicker
-            selected={marathonDetails.marathonDate}
-            onChange={(date) => handleDateChange(date, 'marathonDate')}
-            className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-            required
-          />
-        </div>
-
-        <div className="mb-6">
-          <label htmlFor="distance" className="block text-lg font-medium text-gray-700">Running Distance</label>
-          <select
-            id="distance"
-            name="distance"
-            value={marathonDetails.distance}
-            onChange={handleChange}
-            className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-            required
-          >
-            <option value="3k">3k</option>
-            <option value="10k">10k</option>
-            <option value="25k">25k</option>
-          </select>
-        </div>
-
-        <div className="mb-6">
-          <label htmlFor="description" className="block text-lg font-medium text-gray-700">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            value={marathonDetails.description}
-            onChange={handleChange}
-            className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-            placeholder="Enter marathon description"
-            required
-          />
-        </div>
-
-        <div className="mb-6">
-          <label htmlFor="image" className="block text-lg font-medium text-gray-700">Marathon Image URL</label>
-          <input
-            type="text"
-            id="image"
-            name="image"
-            value={marathonDetails.image}
-            onChange={handleImageChange}
-            className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-            placeholder="Enter image URL"
-          />
-        </div>
-
+        {/* Submit Button */}
         <button
-          type="submit"
-          className={`bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-500 transition duration-300 w-full ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
-          disabled={isSubmitting}
+            type="submit"
+            className={`w-full py-4 font-bold text-white bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl shadow-lg
+                hover:from-amber-600 hover:to-orange-700 hover:shadow-xl hover:scale-[1.02] transition-all duration-300
+                ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+            disabled={isSubmitting}
         >
-          {isSubmitting ? 'Creating Marathon...' : 'Create Marathon'}
+            {isSubmitting ? (
+                <span className="flex items-center justify-center gap-2">
+                    <span className="animate-spin">🌀</span> Creating Event...
+                </span>
+            ) : (
+                '🚀 Launch Marathon Event'
+            )}
         </button>
-      </form>
-    </div>
+    </form>
+</div>
   );
 };
 

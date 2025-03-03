@@ -101,142 +101,177 @@ const Mylist = () => {
     };
 
     return (
-        <div className="p-8">
-            <div className='flex justify-center items-center py-8'>
-                <div className="join">
-                    <div>
-                        <input 
-                            className="input input-bordered join-item" 
-                            placeholder="Search"
-                            value={search} 
-                            onChange={(e) => setSearch(e.target.value)} // Bind search input value
-                        />
-                    </div>
-
-                    <div className="indicator">
-                        <span className="indicator-item badge badge-secondary">new</span>
-                        <button className="btn join-item">Search</button>
-                    </div>
-                </div>
+        <div className="p-8  min-h-screen">
+        {/* Search Section */}
+        <div className='flex justify-center items-center py-8'>
+            <div className="join w-full max-w-md">
+                <input 
+                    className="input join-item w-full border-2 border-orange-300 focus:border-orange-500 focus:outline-none bg-yellow-50 placeholder-orange-400" 
+                    placeholder="🔍 Search marathons..."
+                    value={search} 
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+                <button className="btn join-item bg-gradient-to-r from-orange-400 to-amber-500 text-white hover:from-orange-500 hover:to-amber-600 border-0">
+                    Search
+                </button>
             </div>
-            {loading ? (
-                <p>Loading...</p>
-            ) : (
-                <div>
-                    {registrationData.length > 0 ? (
-                        <table className="min-w-full table-auto border-collapse border border-gray-200">
-                            <thead>
-                                <tr>
-                                    <th className="border border-gray-300 px-4 py-2">Marathon Title</th>
-                                    <th className="border border-gray-300 px-4 py-2">Start Date</th>
-                                    <th className="border border-gray-300 px-4 py-2">Distance</th>
-                                    <th className="border border-gray-300 px-4 py-2">Location</th>
-                                    <th className="border border-gray-300 px-4 py-2">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {registrationData.map((registration) => (
-                                    <tr key={registration._id}>
-                                        <td className="border border-gray-300 px-4 py-2">{registration.title}</td>
-                                        <td className="border border-gray-300 px-4 py-2">
-                                            {new Date(registration.marathonDate).toLocaleDateString()}
-                                        </td>
-                                        <td className="border border-gray-300 px-4 py-2">{registration.distance}</td>
-                                        <td className="border border-gray-300 px-4 py-2">{registration.location}</td>
-                                        <td className="border border-gray-300 px-4 py-2">
+        </div>
+    
+        {loading ? (
+            <div className="flex justify-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-orange-500"></div>
+            </div>
+        ) : (
+            <div className="overflow-x-auto rounded-2xl shadow-xl border-2 border-orange-200 bg-white">
+                {registrationData.length > 0 ? (
+                    <table className="min-w-full table-auto">
+                        <thead className="bg-gradient-to-r from-orange-400 to-amber-500 text-white">
+                            <tr>
+                                <th className="px-6 py-4 text-left font-bold">Marathon Title</th>
+                                <th className="px-6 py-4 text-left">📅 Date</th>
+                                <th className="px-6 py-4 text-left">📏 Distance</th>
+                                <th className="px-6 py-4 text-left">📍 Location</th>
+                                <th className="px-6 py-4 text-left">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-orange-100">
+                            {registrationData.map((registration) => (
+                                <tr key={registration._id} className="hover:bg-orange-50 transition-colors">
+                                    <td className="px-6 py-4 font-semibold text-orange-900">{registration.title}</td>
+                                    <td className="px-6 py-4 text-orange-800">
+                                        {new Date(registration.marathonDate).toLocaleDateString()}
+                                    </td>
+                                    <td className="px-6 py-4 text-orange-800">{registration.distance}</td>
+                                    <td className="px-6 py-4 text-orange-800">{registration.location}</td>
+                                    <td className="px-6 py-4">
+                                        <div className="flex gap-3">
                                             <button
-                                                className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+                                                className="bg-gradient-to-r from-amber-400 to-orange-500 text-white px-4 py-2 rounded-lg hover:scale-105 transition-transform shadow-md"
                                                 onClick={() => handleUpdateModalOpen(registration)}
                                             >
-                                                Update
+                                                ✏️ Update
                                             </button>
                                             <button
-                                                className="bg-red-500 text-white px-4 py-2 rounded"
+                                                className="bg-gradient-to-r from-red-400 to-orange-600 text-white px-4 py-2 rounded-lg hover:scale-105 transition-transform shadow-md"
                                                 onClick={() => {
                                                     setSelectedRegistrationId(registration._id);
                                                     setShowDeleteModal(true);
                                                 }}
                                             >
-                                                Delete
+                                                🗑️ Delete
                                             </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    ) : (
-                        <p>No registrations found</p>
-                    )}
-                </div>
-            )}
-
-            {/* Delete Confirmation Modal */}
-            <input type="checkbox" id="delete-modal" className="modal-toggle" checked={showDeleteModal} onChange={() => setShowDeleteModal(!showDeleteModal)} />
-            <div className="modal">
-                <div className="modal-box">
-                    <h2 className="text-xl font-semibold">Confirm Deletion</h2>
-                    <p>Are you sure you want to delete this registration?</p>
-                    <div className="modal-action">
-                        <button className="btn" onClick={() => setShowDeleteModal(false)}>Cancel</button>
-                        <button className="btn btn-error" onClick={handleDelete}>Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <div className="p-8 text-center">
+                        <p className="text-orange-600 text-xl">🏃 No registrations found!</p>
                     </div>
-                </div>
+                )}
             </div>
-
-            {/* Update Modal */}
-            <input type="checkbox" id="update-modal" className="modal-toggle" checked={showUpdateModal} onChange={() => setShowUpdateModal(!showUpdateModal)} />
-            <div className="modal">
-                <div className="modal-box">
-                    <h2 className="text-xl font-semibold">Update Registration</h2>
-                    <form onSubmit={handleUpdateSubmit}>
-                        <div className="form-control">
-                            <label className="label">Marathon Title</label>
-                            <input
-                                type="text"
-                                value={selectedRegistration.title}
-                                onChange={(e) => setSelectedRegistration({ ...selectedRegistration, title: e.target.value })}
-                                className="input input-bordered"
-                                required
-                            />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">Start Date</label>
-                            <input
-                                type="date"
-                                value={selectedRegistration.marathonDate}
-                                onChange={(e) => setSelectedRegistration({ ...selectedRegistration, marathonDate: e.target.value })}
-                                className="input input-bordered"
-                                required
-                            />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">Distance</label>
-                            <input
-                                type="text"
-                                value={selectedRegistration.distance}
-                                onChange={(e) => setSelectedRegistration({ ...selectedRegistration, distance: e.target.value })}
-                                className="input input-bordered"
-                                required
-                            />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">Location</label>
-                            <input
-                                type="text"
-                                value={selectedRegistration.location}
-                                onChange={(e) => setSelectedRegistration({ ...selectedRegistration, location: e.target.value })}
-                                className="input input-bordered"
-                                required
-                            />
-                        </div>
-                        <div className="modal-action">
-                            <button className="btn" type="button" onClick={() => setShowUpdateModal(false)}>Cancel</button>
-                            <button className="btn btn-primary" type="submit">Update</button>
-                        </div>
-                    </form>
+        )}
+    
+        {/* Delete Modal */}
+        <input type="checkbox" id="delete-modal" className="modal-toggle" checked={showDeleteModal} />
+        <div className="modal">
+            <div className="modal-box bg-orange-50 border-2 border-orange-200">
+                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-amber-500">
+                    Confirm Deletion
+                </h2>
+                <p className="py-4 text-orange-800">❌ Are you sure you want to delete this registration?</p>
+                <div className="modal-action gap-4">
+                    <button 
+                        className="btn bg-gray-100 text-orange-600 hover:bg-gray-200 border-orange-200"
+                        onClick={() => setShowDeleteModal(false)}
+                    >
+                        Cancel
+                    </button>
+                    <button 
+                        className="btn bg-gradient-to-r from-red-400 to-orange-600 text-white hover:opacity-90"
+                        onClick={handleDelete}
+                    >
+                        Confirm Delete
+                    </button>
                 </div>
             </div>
         </div>
+    
+        {/* Update Modal */}
+        <input type="checkbox" id="update-modal" className="modal-toggle" checked={showUpdateModal} />
+        <div className="modal">
+            <div className="modal-box bg-orange-50 border-2 border-orange-200">
+                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-amber-500 mb-6">
+                    ✨ Update Registration
+                </h2>
+                <form onSubmit={handleUpdateSubmit} className="space-y-4">
+                    <div className="form-control">
+                        <label className="label text-orange-800 font-semibold">Marathon Title</label>
+                        <input
+                            type="text"
+                            className="input input-bordered border-orange-300 bg-yellow-50 focus:border-orange-500"
+                            value={selectedRegistration.title}
+                            onChange={(e) => setSelectedRegistration({ ...selectedRegistration, title: e.target.value })}
+                            required
+                        />
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="form-control">
+                            <label className="label text-orange-800 font-semibold">📅 Date</label>
+                            <input
+                                type="date"
+                                className="input input-bordered border-orange-300 bg-yellow-50 focus:border-orange-500"
+                                value={selectedRegistration.marathonDate}
+                                onChange={(e) => setSelectedRegistration({ ...selectedRegistration, marathonDate: e.target.value })}
+                                required
+                            />
+                        </div>
+                        
+                        <div className="form-control">
+                            <label className="label text-orange-800 font-semibold">📏 Distance</label>
+                            <input
+                                type="text"
+                                className="input input-bordered border-orange-300 bg-yellow-50 focus:border-orange-500"
+                                value={selectedRegistration.distance}
+                                onChange={(e) => setSelectedRegistration({ ...selectedRegistration, distance: e.target.value })}
+                                required
+                            />
+                        </div>
+                    </div>
+    
+                    <div className="form-control">
+                        <label className="label text-orange-800 font-semibold">📍 Location</label>
+                        <input
+                            type="text"
+                            className="input input-bordered border-orange-300 bg-yellow-50 focus:border-orange-500"
+                            value={selectedRegistration.location}
+                            onChange={(e) => setSelectedRegistration({ ...selectedRegistration, location: e.target.value })}
+                            required
+                        />
+                    </div>
+    
+                    <div className="modal-action gap-4">
+                        <button 
+                            type="button"
+                            className="btn bg-gray-100 text-orange-600 hover:bg-gray-200 border-orange-200"
+                            onClick={() => setShowUpdateModal(false)}
+                        >
+                            Cancel
+                        </button>
+                        <button 
+                            type="submit"
+                            className="btn bg-gradient-to-r from-amber-400 to-orange-500 text-white hover:opacity-90"
+                        >
+                            Update Registration
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     );
 };
 

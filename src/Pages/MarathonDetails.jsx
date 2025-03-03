@@ -12,7 +12,7 @@ const MarathonDetails = () => {
     const [marathon, setMarathon] = useState(null);
     const [isRegistering, setIsRegistering] = useState(false);
     const [formData, setFormData] = useState({
-        email: user.email,
+        email: user?.email,
         firstName: '',
         lastName: '',
         contactNumber: '',
@@ -95,137 +95,145 @@ marathonDate: marathon.marathonDate,
     const isSelectedDateWithinRegistrationWindow = new Date(formData.selectedDate) >= new Date(marathon.startRegDate) && new Date(formData.selectedDate) <= new Date(marathon.endRegDate);
 
     return (
-        <div className="bg-gradient-to-br from-green-300 via-green-500 to-green-700 min-h-screen py-12">
-            <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-2xl">
-                <h2 className="text-5xl font-extrabold text-center text-gray-800 mb-8">{marathon.title}</h2>
-                <div className="flex justify-center mb-8">
-                    <img
-                        src={marathon.image || 'https://via.placeholder.com/600x400'}
-                        alt={marathon.title}
-                        className="w-full md:w-3/4 lg:w-2/3 h-80 object-cover rounded-lg shadow-md"
-                    />
-                </div>
-                <div className="space-y-6">
-                    <p className="text-xl font-semibold text-gray-800">
-                        <span className="text-green-600">Location: </span>{marathon.location}
+        <div className="min-h-screen py-12">
+        <div className="max-w-4xl mx-auto p-8  rounded-lg shadow-2xl border-2 border-orange-100">
+            <h2 className="text-5xl font-extrabold text-center text-orange-800 mb-8 drop-shadow-[0_2px_2px_rgba(251,146,60,0.3)]">
+                {marathon.title}
+                <span className="block mt-4 text-2xl text-amber-700">🏃♂️ Race to Victory! 🏁</span>
+            </h2>
+            
+            <div className="flex justify-center mb-8">
+                <img
+                    src={marathon.image || 'https://i.ibb.co.com/xHd9jjY/marathon-3753907-1280.jpg'}
+                    alt={marathon.title}
+                    className="w-full md:w-3/4 lg:w-2/3 h-80 object-cover rounded-lg shadow-md border-4 border-amber-100"
+                />
+            </div>
+    
+            <div className="space-y-6">
+                <div className="p-4 rounded-xl border border-amber-200">
+                    <p className="text-xl font-semibold text-orange-800">
+                        <span className="text-amber-600">📍 Location: </span>{marathon.location}
                     </p>
-                    <p className="text-xl font-semibold text-gray-800">
-                        <span className="text-green-600">Marathon Date: </span>
+                </div>
+    
+                <div className="p-4  rounded-xl border border-amber-200">
+                    <p className="text-xl font-semibold text-orange-800">
+                        <span className="text-amber-600">📅 Marathon Date: </span>
                         {new Date(marathon.marathonDate).toLocaleDateString()}
                     </p>
-                    <p className="text-xl font-semibold text-gray-800">
-                        <span className="text-green-600">Total Registrations: </span>
+                </div>
+    
+                <div className="p-4  rounded-xl border border-amber-200">
+                    <p className="text-xl font-semibold text-orange-800">
+                        <span className="text-amber-600">👥 Total Registrations: </span>
                         {totalRegistrations}
                     </p>
-                    <p className="text-lg text-gray-700 leading-relaxed">
-                        <span className="font-semibold text-green-600">Description:</span>
+                </div>
+    
+                <div className="p-4  rounded-xl border border-amber-200">
+                    <p className="text-lg text-orange-800 leading-relaxed">
+                        <span className="font-semibold text-amber-600">📝 Description:</span>
                         <br />
                         {marathon.description}
                     </p>
                 </div>
-
-                {/* Registration Form */}
-                {isRegistrationOpen && (
-                    <div className="mt-12">
-                        <h3 className="text-2xl font-semibold text-gray-800 mb-6">Register for {marathon.title}</h3>
-                        <form onSubmit={handleRegister} className="space-y-4">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label htmlFor="email" className="block text-lg font-medium text-gray-700">Email</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        value={formData?.email}
-                                        onChange={handleChange}
-                                        className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                                        readOnly
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="firstName" className="block text-lg font-medium text-gray-700">First Name</label>
-                                    <input
-                                        type="text"
-                                        id="firstName"
-                                        name="firstName"
-                                        value={formData.firstName}
-                                        onChange={handleChange}
-                                        className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                                        required
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="lastName" className="block text-lg font-medium text-gray-700">Last Name</label>
-                                    <input
-                                        type="text"
-                                        id="lastName"
-                                        name="lastName"
-                                        value={formData.lastName}
-                                        onChange={handleChange}
-                                        className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                                        required
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="contactNumber" className="block text-lg font-medium text-gray-700">Contact Number</label>
-                                    <input
-                                        type="tel"
-                                        id="contactNumber"
-                                        name="contactNumber"
-                                        value={formData.contactNumber}
-                                        onChange={handleChange}
-                                        className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                                        required
-                                    />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label htmlFor="additionalInfo" className="block text-lg font-medium text-gray-700">Additional Information</label>
-                                <textarea
-                                    id="additionalInfo"
-                                    name="additionalInfo"
-                                    value={formData.additionalInfo}
-                                    onChange={handleChange}
-                                    className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    placeholder="Any additional info"
-                                />
-                            </div>
-
-                            {/* Date Picker */}
-                            <div>
-                                <label htmlFor="selectedDate" className="block text-lg font-medium text-gray-700">Select Date</label>
-                                <DatePicker
-                                    selected={formData.selectedDate}
-                                    onChange={(date) => setFormData({ ...formData, selectedDate: date })}
-                                    minDate={new Date(marathon.startRegDate)}
-                                    maxDate={new Date(marathon.endRegDate)}
-                                    className="mt-2 p-3 w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                                />
-                            </div>
-
-                            <button
-                                type="submit"
-                                className={`bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-500 transition duration-300 w-full ${isRegistering || !isSelectedDateWithinRegistrationWindow ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                disabled={isRegistering || !isSelectedDateWithinRegistrationWindow}
-                            >
-                                {isRegistering ? 'Registering...' : 'Register'}
-                            </button>
-                        </form>
-                    </div>
-                )}
-
-                {/* Registration Closed Message */}
-                {!isRegistrationOpen && (
-                    <div className="mt-12 text-center">
-                        <p className="text-xl text-gray-600">Registration for this marathon is closed.</p>
-                    </div>
-                )}
             </div>
+    
+            {/* Registration Form */}
+            {isRegistrationOpen && (
+                <div className="mt-12">
+                    <h3 className="text-2xl font-semibold text-orange-800 mb-6 bg-amber-100 p-4 rounded-xl">
+                        Register for {marathon.title}
+                    </h3>
+                    
+                    <form onSubmit={handleRegister} className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {/* Form fields with orange/yellow focus */}
+                            {[
+                                { id: 'email', label: 'Email', type: 'email', readOnly: true },
+                                { id: 'firstName', label: 'First Name', type: 'text' },
+                                { id: 'lastName', label: 'Last Name', type: 'text' },
+                                { id: 'contactNumber', label: 'Contact Number', type: 'tel' }
+                            ].map((field) => (
+                                <div key={field.id}>
+                                    <label htmlFor={field.id} className="block text-lg font-medium text-orange-800">
+                                        {field.label}
+                                    </label>
+                                    <input
+                                        type={field.type}
+                                        id={field.id}
+                                        name={field.id}
+                                        value={formData[field.id]}
+                                        onChange={handleChange}
+                                        className="mt-2 p-3 w-full border-2 border-amber-200 rounded-xl shadow-sm focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-300"
+                                        required={!field.readOnly}
+                                        readOnly={field.readOnly}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+    
+                        {/* Additional Info */}
+                        <div>
+                            <label htmlFor="additionalInfo" className="block text-lg font-medium text-orange-800">
+                                Additional Information
+                            </label>
+                            <textarea
+                                id="additionalInfo"
+                                name="additionalInfo"
+                                value={formData.additionalInfo}
+                                onChange={handleChange}
+                                className="mt-2 p-3 w-full border-2 border-amber-200 rounded-xl shadow-sm focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-300"
+                                placeholder="Any special requirements or notes"
+                            />
+                        </div>
+    
+                        {/* Date Picker */}
+                        <div>
+                            <label htmlFor="selectedDate" className="block text-lg font-medium text-orange-800">
+                                Select Race Date
+                            </label>
+                            <DatePicker
+                                selected={formData.selectedDate}
+                                onChange={(date) => setFormData({ ...formData, selectedDate: date })}
+                                minDate={new Date(marathon.startRegDate)}
+                                maxDate={new Date(marathon.endRegDate)}
+                                className="mt-2 p-3 w-full border-2 border-amber-200 rounded-xl shadow-sm focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-300"
+                            />
+                        </div>
+    
+                        {/* Submit Button */}
+                        <button
+                            type="submit"
+                            className={`bg-gradient-to-r from-amber-500 to-orange-600 text-white py-3 px-6 rounded-xl hover:from-amber-600 hover:to-orange-700 transition-all duration-300 w-full font-bold ${
+                                isRegistering || !isSelectedDateWithinRegistrationWindow ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}
+                            disabled={isRegistering || !isSelectedDateWithinRegistrationWindow}
+                        >
+                            {isRegistering ? (
+                                <span className="flex items-center justify-center gap-2">
+                                    <span className="animate-spin">⏳</span> Registering...
+                                </span>
+                            ) : (
+                                'Register Now 🏃♀️'
+                            )}
+                        </button>
+                    </form>
+                </div>
+            )}
+    
+            {/* Registration Closed Message */}
+            {!isRegistrationOpen && (
+                <div className="mt-12 text-center p-6 bg-amber-100 rounded-xl">
+                    <p className="text-xl text-orange-800 font-semibold">
+                        🚫 Registration Closed
+                        <span className="block mt-2 text-lg text-amber-700">Stay tuned for next season!</span>
+                    </p>
+                </div>
+            )}
         </div>
+    </div>
     );
 };
 
